@@ -29,6 +29,6 @@ cmake_install.cmake
 *.log
 
 # Customize Executable Makefile
-philo/
-philo_bonus/
+philo/philo
+philo_bonus/philo_bonus
 libft/
