@@ -6,18 +6,21 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 17:44:34 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/26 03:41:32 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/26 18:42:11 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*routine_handler(void *arg)
+void	*routine_handler(void *philo)
 {
-	t_env	*env;
+	t_philosopher	*philo;
 
-	env = (t_env *)arg;
-	(void)env;
+	philo = (t_philosopher *)philo;
+	while (1)
+	{
+	}
+	(void)philo;
 	printf("COUCOU !");
 	return (NULL);
 }
@@ -27,7 +30,8 @@ t_philosopher	create_a_philosopher(t_env *env, size_t id)
 	t_philosopher	philo;
 
 	philo.id = id;
-	pthread_create(&philo.thread, NULL, routine_handler, env);
+	printf("%zu", id);
+	pthread_create(&philo.thread, NULL, routine_handler, &philo);
 	philo.time_last_meal = 0;
 	philo.count_to_eat = 0;
 	philo.param = env->param;

@@ -8,6 +8,8 @@ SRC = philo.c \
 		parsing/parsing.c \
 \
 		exec/exec.c \
+		exec/routine.c \
+		exec/print_state_philo.c \
 \
 		debug/print_param.c \
 \

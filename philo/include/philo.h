@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 17:14:59 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/26 03:34:25 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/26 18:21:41 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,20 @@
 /*******************************/
 /*           DEFINE            */
 /*******************************/
+# define LOG_TAKE_FORK "has taken a fork"
+# define LOG_EATING "is eating"
+# define LOG_SLEEP "is sleeping"
+# define LOG_THINKING "is thinking"
+# define LOG_DIED "died"
+
 # define PARSING_MIN 0
 
 # define INT_MIN -2147483648
 # define INT_MAX 2147483647
 
+/*******************************/
+/*           STRUCT            */
+/*******************************/
 typedef struct s_list
 {
 	void			*content;
@@ -73,6 +82,13 @@ typedef struct s_env
 /*            PHILO            */
 /*******************************/
 short				parsing(t_env *env, char **argv);
+
+short				routine_think(t_env *env, t_philosopher *philo);
+short				routine_eat(t_env *env, t_philosopher *philo);
+short				routine_sleep(t_env *env, t_philosopher *philo);
+
+void				print_state_philo(t_philosopher *philo, char *log,
+						size_t timestamp);
 
 /*******************************/
 /*            UTILS            */
