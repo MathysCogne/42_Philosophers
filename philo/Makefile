@@ -9,10 +9,13 @@ SRC = philo.c \
 \
 		exec/exec.c \
 \
+		debug/print_param.c \
+\
 		utils/ft_atoll.c \
 		utils/is_int.c \
 		utils/ft_strlen.c \
-		utils/garbage_collector.c
+		utils/garbage_collector.c \
+		utils/clean.c
 
 
 OBJ = $(SRC:.c=.o)

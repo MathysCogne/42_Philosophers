@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "garbage_collector.h"
+#include "philo.h"
 
 /*
 ** How use my garbage collector ?
@@ -30,7 +30,6 @@
 **	gc_clean(gc);
 **		/ Finally, clean all allocations in the garbage collector
 */
-
 /*
 ** Initialize the garbage collector
 ** - Return garbage collector head

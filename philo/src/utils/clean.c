@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_int.c                                           :+:      :+:    :+:   */
+/*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/25 17:44:43 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/26 02:03:20 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/26 03:29:46 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/26 03:33:50 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-short	is_int(size_t size, char **arg)
+void	clean(t_env *env)
 {
 	size_t	i;
-	char	*str;
 
-	i = 1;
-	while (i < size)
+	gc_clean(env->gc);
+	i = 0;
+	while (i < env->param.nb_philo)
 	{
-		if (ft_strlen(arg[i]) > 12)
-			return (1);
-		if (ft_atoll(arg[i]) > INT_MAX || ft_atoll(arg[i]) < PARSING_MIN)
-			return (1);
-		str = arg[i];
-		if (*str == '-' || *str == '+')
-			str++;
-		while (*str)
-		{
-			if (*str < '0' || *str > '9')
-				return (1);
-			str++;
-		}
+		pthread_mutex_destroy(&env->param.forks[i]);
 		i++;
 	}
-	return (0);
+	pthread_mutex_destroy(&env->param.printf_lock);
 }
