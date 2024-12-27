@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 00:38:32 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/27 03:34:46 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/27 04:19:45 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static t_philosopher	*create_a_philosopher(t_env *env, size_t id)
 	philo = malloc(sizeof(t_philosopher));
 	if (!philo)
 		return (NULL);
+	gc_add(env->gc, philo);
 	philo->id = id;
 	philo->time_last_meal = get_time();
 	philo->count_to_eat = 0;
