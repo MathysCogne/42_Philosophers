@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 17:20:58 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/26 03:30:27 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/27 04:10:45 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,17 @@
 
 static short	philo(t_env *env, char **argv)
 {
-	if (parsing(env, argv))
+	init_param(env, argv);
+	debug_print_param(env);
+	if (init_fork(env))
 		return (1);
+	if (init_philosopher(env))
+		return (1);
+	while (!env->param.state_end)
+	{
+		if (init_monitor(env))
+			return (1);
+	}
 	return (0);
 }
 

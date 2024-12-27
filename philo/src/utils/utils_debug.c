@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_param.c                                      :+:      :+:    :+:   */
+/*   utils_debug.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 02:17:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/26 02:30:05 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/27 01:27:36 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,4 @@ void	debug_print_param(t_env *env)
 	printf(" time_sleep: %ld\n", env->param.time_sleep);
 	printf(" nb_to_eat: %ld\n", env->param.nb_to_eat);
 	printf(" state_end: %d\n", env->param.state_end);
-	// printf("  printf_lock: %ld\n", env->param.printf_lock);
-	// printf("  forks: %ld\n", env->param.forks);
 }

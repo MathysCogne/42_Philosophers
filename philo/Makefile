@@ -5,19 +5,28 @@ OBJDIR = obj
 INCDIR = include
 
 SRC = philo.c \
-		parsing/parsing.c \
+		init/init_forks.c \
+		init/init_param.c \
+		init/init_philosopher.c \
 \
-		exec/exec.c \
-		exec/routine.c \
-		exec/print_state_philo.c \
+		routines/routine_eat.c \
+		routines/routine_fork.c \
+		routines/routine_handler.c \
+		routines/routine_sleep.c \
+		routines/routine_think.c \
 \
-		debug/print_param.c \
+		monitor/monitor_death.c \
+		monitor/monitor_state.c \
 \
-		utils/ft_atoll.c \
-		utils/is_int.c \
-		utils/ft_strlen.c \
-		utils/garbage_collector.c \
-		utils/clean.c
+		utils/utils_clean.c \
+		utils/utils_print.c \
+		utils/utils_time.c \
+		utils/utils_debug.c \
+\
+		lib/ft_atoll.c \
+		lib/ft_strlen.c \
+		lib/garbage_collector.c \
+		lib/is_int.c
 
 
 OBJ = $(SRC:.c=.o)

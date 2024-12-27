@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_state_philo.c                                :+:      :+:    :+:   */
+/*   utils_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 18:20:51 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/26 18:22:55 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/27 02:14:01 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 void	print_state_philo(t_philosopher *philo, char *log, size_t timestamp)
 {
-	// TODO LOCK MUTEX
+	pthread_mutex_lock(&philo->param.printf_lock);
 	printf("%zu %zu %s\n", timestamp, philo->id, log);
-	// TODO DELOCK MUTEX
+	pthread_mutex_unlock(&philo->param.printf_lock);
 }

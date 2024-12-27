@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine.c                                          :+:      :+:    :+:   */
+/*   init_param.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/26 18:07:48 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/26 18:24:45 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/27 00:34:30 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/27 03:59:17 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-short	routine_sleep(t_env *env, t_philosopher *philo)
+void	init_param(t_env *env, char **argv)
 {
-	(void)env;
-	print_state_philo(philo, LOG_SLEEP, 4242);
-	return (0);
-}
-
-short	routine_eat(t_env *env, t_philosopher *philo)
-{
-	(void)env;
-	print_state_philo(philo, LOG_EATING, 4242);
-	return (0);
-}
-
-short	routine_think(t_env *env, t_philosopher *philo)
-{
-	(void)env;
-	print_state_philo(philo, LOG_THINKING, 4242);
-	return (0);
+	env->param.nb_philo = ft_atoll(argv[1]);
+	env->param.time_die = ft_atoll(argv[2]);
+	env->param.time_eat = ft_atoll(argv[3]);
+	env->param.time_sleep = ft_atoll(argv[4]);
+	if (argv[5])
+		env->param.nb_to_eat = ft_atoll(argv[5]);
+	else
+		env->param.nb_to_eat = -1;
+	env->param.start_time = get_time();
+	env->param.state_end = 0;
 }
