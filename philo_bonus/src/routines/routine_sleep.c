@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_mutex_count_eat.c                            :+:      :+:    :+:   */
+/*   routine_sleep.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/27 23:22:55 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/28 19:23:26 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/26 18:07:48 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/29 00:40:57 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-size_t	get_count_eat(t_philosopher *philo)
+short	routine_sleep(t_philosopher *philo)
 {
-	size_t	count_eat;
-
-	pthread_mutex_lock(&philo->lock_count_eat);
-	count_eat = philo->count_to_eat;
-	pthread_mutex_unlock(&philo->lock_count_eat);
-	return (count_eat);
-}
-
-void	increment_count_eat(t_philosopher *philo)
-{
-	pthread_mutex_lock(&philo->lock_count_eat);
-	philo->count_to_eat++;
-	pthread_mutex_unlock(&philo->lock_count_eat);
+	if (get_state_end(philo->param))
+		return (1);
+	print_state_philo(philo, LOG_SLEEP, get_time_simulation(philo));
+	ft_sleep(philo->param->time_sleep);
+	return (0);
 }

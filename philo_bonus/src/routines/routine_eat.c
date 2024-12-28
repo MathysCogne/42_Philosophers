@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_mutex_last_meal.c                            :+:      :+:    :+:   */
+/*   routine_eat.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/27 23:22:55 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/28 19:23:26 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/26 18:07:48 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/29 00:40:48 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-size_t	get_last_meal(t_philosopher *philo)
+short	routine_eat(t_philosopher *philo)
 {
-	size_t	last_meal;
-
-	pthread_mutex_lock(&philo->lock_last_meal);
-	last_meal = philo->time_last_meal;
-	pthread_mutex_unlock(&philo->lock_last_meal);
-	return (last_meal);
-}
-
-void	update_last_meal(t_philosopher *philo, size_t new_value)
-{
-	pthread_mutex_lock(&philo->lock_last_meal);
-	philo->time_last_meal = new_value;
-	pthread_mutex_unlock(&philo->lock_last_meal);
+	if (get_state_end(philo->param))
+		return (1);
+	update_last_meal(philo, get_time_simulation(philo));
+	increment_count_eat(philo);
+	print_state_philo(philo, LOG_EATING, get_time_simulation(philo));
+	ft_sleep(philo->param->time_eat);
+	return (0);
 }

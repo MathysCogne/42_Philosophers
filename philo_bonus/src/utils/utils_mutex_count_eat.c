@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine_handler.c                                  :+:      :+:    :+:   */
+/*   utils_mutex_count_eat.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/25 17:44:34 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/28 19:23:26 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/27 23:22:55 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/29 00:29:16 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	*routine_handler(void *arg)
+size_t	get_count_eat(t_philosopher *philo)
 {
-	t_philosopher	*philo;
+	size_t	count_eat;
 
-	philo = (t_philosopher *)arg;
-	while (!get_state_end(philo->param))
-	{
-		if (routine_take_fork(philo))
-			break ;
-		if (routine_eat(philo))
-		{
-			routine_free_fork(philo);
-			break ;
-		}
-		if (routine_free_fork(philo))
-			break ;
-		if (routine_sleep(philo))
-			break ;
-		if (philo->param->nb_philo % 2 != 0)
-			routine_think(philo);
-	}
-	return (NULL);
+	count_eat = philo->count_to_eat;
+	return (count_eat);
+}
+
+void	increment_count_eat(t_philosopher *philo)
+{
+	philo->count_to_eat++;
 }

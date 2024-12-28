@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine_eat.c                                      :+:      :+:    :+:   */
+/*   monitor_join_thread.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/26 18:07:48 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/28 19:23:26 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/27 19:07:26 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/29 00:01:29 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-short	routine_eat(t_philosopher *philo)
+short	join_thread(t_env *env)
 {
-	if (get_state_end(philo->param))
-		return (1);
-	update_last_meal(philo, get_time_simulation(philo));
-	increment_count_eat(philo);
-	print_state_philo(philo, LOG_EATING, get_time_simulation(philo));
-	ft_sleep(philo->param->time_eat);
+	size_t	i;
+	int		status;
+
+	i = 0;
+	while (i < env->param->nb_philo)
+	{
+		waitpid(env->philo[i]->pid, &status, 0);
+		printf("UN PHILO MORT\n");
+		if (WIFEXITED(status))
+		{
+			if (WEXITSTATUS(status) == 1)
+			{
+				printf(">> KILL ALL\n");
+				// kill_all_philo(env);
+				break ;
+			}
+		}
+		i++;
+	}
 	return (0);
 }

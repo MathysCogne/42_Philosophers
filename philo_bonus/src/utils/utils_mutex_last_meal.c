@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_forks.c                                       :+:      :+:    :+:   */
+/*   utils_mutex_last_meal.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/27 00:34:02 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/28 20:13:21 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/27 23:22:55 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/29 00:28:59 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-short	init_fork(t_env *env)
+size_t	get_last_meal(t_philosopher *philo)
 {
-	sem_unlink("/sem_forks");
-	sem_unlink("/sem_state_end");
-	sem_unlink("/sem_printf");
-	sem_open("/sem_forks", SEM_CREATE | SEM_ONLY, SEM_PERMS, env->param->nb_philo);
-	sem_open("/sem_state_end", SEM_CREATE | SEM_ONLY, SEM_PERMS, 1);
-	sem_open("/sem_printf", SEM_CREATE | SEM_ONLY, SEM_PERMS, 1);
-	return (0);
+	size_t	last_meal;
+
+	last_meal = philo->time_last_meal;
+	return (last_meal);
+}
+
+void	update_last_meal(t_philosopher *philo, size_t new_value)
+{
+	philo->time_last_meal = new_value;
 }

@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 00:38:32 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/28 20:22:09 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/29 00:21:54 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 short	start_processus(t_env *env, size_t id)
 {
-	env->philo[id]->pid = fork();
-	if (env->philo[id] == 0)
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == 0)
 	{
 		routine_handler(env->philo[id]);
 		exit(0);
 	}
+	env->philo[id]->pid = pid;
 	return (0);
 }
 
@@ -30,13 +33,11 @@ static t_philosopher	*create_a_philosopher(t_env *env, size_t id)
 	philo = malloc(sizeof(t_philosopher));
 	if (!philo)
 		return (NULL);
-	philo->pid = NULL;
+	philo->pid = -1;
 	philo->id = id;
 	philo->time_last_meal = 0;
 	philo->count_to_eat = 0;
 	philo->param = env->param;
-	// pthread_mutex_init(&philo->lock_last_meal, NULL);
-	// pthread_mutex_init(&philo->lock_count_eat, NULL);
 	return (philo);
 }
 
@@ -44,7 +45,7 @@ short	init_philosopher(t_env *env)
 {
 	size_t	i;
 
-	env->philo = malloc(sizeof(t_philosopher) * env->param->nb_philo);
+	env->philo = malloc(sizeof(t_philosopher *) * env->param->nb_philo);
 	if (!env->philo)
 		return (1);
 	gc_add(env->gc, env->philo);

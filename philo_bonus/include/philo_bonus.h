@@ -14,12 +14,15 @@
 # define PHILO_BONUS_H
 
 # include "struct.h"
+# include <fcntl.h>
 # include <pthread.h>
 # include <semaphore.h>
+# include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
 # include <sys/types.h>
+# include <sys/wait.h>
 # include <unistd.h>
 // memset, printf, malloc, free, write, fork, kill,
 // exit, pthread_create, pthread_detach, pthread_join,
@@ -45,8 +48,6 @@
 # define INT_MIN -2147483648
 # define INT_MAX 2147483647
 
-# define SEM_CREATE 0x0200
-# define SEM_ONLY 0x0800
 # define SEM_PERMS 0644
 
 /*******************************/
@@ -90,6 +91,8 @@ size_t		get_delay_last_meal(t_philosopher *philo);
 size_t		get_time_simulation(t_philosopher *philo);
 void		print_state_philo(t_philosopher *philo, char *log,
 				size_t timestamp);
+
+short		check_last_meal(t_philosopher *philo);
 
 /*******************************/
 /*            DEBUG            */

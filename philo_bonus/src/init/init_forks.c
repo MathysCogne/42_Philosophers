@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_mutex_state_end.c                            :+:      :+:    :+:   */
+/*   init_forks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/27 23:14:11 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/28 19:23:26 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/27 00:34:02 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/29 00:21:03 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-short	get_state_end(t_param *param)
+short	init_fork(t_env *env)
 {
-	short	state;
-
-	pthread_mutex_lock(&param->lock_state_end);
-	state = param->state_end;
-	pthread_mutex_unlock(&param->lock_state_end);
-	return (state);
-}
-
-void	update_state_end(t_param *param, int new_value)
-{
-	pthread_mutex_lock(&param->lock_state_end);
-	param->state_end = new_value;
-	pthread_mutex_unlock(&param->lock_state_end);
+	sem_unlink("/sem_forks");
+	sem_unlink("/sem_state_end");
+	sem_unlink("/sem_printf");
+	env->param->sem_forks = sem_open("/sem_forks", O_CREAT | O_EXCL, SEM_PERMS,
+			env->param->nb_philo);
+	env->param->sem_state_end = sem_open("/sem_state_end", O_CREAT | O_EXCL,
+			SEM_PERMS, 1);
+	env->param->sem_printf = sem_open("/sem_printf", O_CREAT | O_EXCL,
+			SEM_PERMS, 1);
+	return (0);
 }

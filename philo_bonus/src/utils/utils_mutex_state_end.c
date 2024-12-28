@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monitor_join_thread.c                              :+:      :+:    :+:   */
+/*   utils_mutex_state_end.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/27 19:07:26 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/28 19:23:26 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/27 23:14:11 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/28 23:26:05 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-short	join_thread(t_env *env)
+short	get_state_end(t_param *param)
 {
-	size_t	i;
+	short	state;
 
-	i = 0;
-	while (i < env->param->nb_philo)
-	{
-		pthread_join(env->philo[i]->thread, NULL);
-		i++;
-	}
-	pthread_join(env->monitor_thread, NULL);
-	return (0);
+	sem_wait(param->sem_state_end);
+	state = param->state_end;
+	sem_post(param->sem_state_end);
+	return (state);
+}
+
+void	update_state_end(t_param *param, int new_value)
+{
+	sem_wait(param->sem_state_end);
+	param->state_end = new_value;
+	sem_post(param->sem_state_end);
 }
