@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 17:14:59 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/27 03:58:55 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/27 23:25:42 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,14 @@
 /*            INIT             */
 /*******************************/
 short		init_fork(t_env *env);
-void		init_param(t_env *env, char **argv);
+short		init_param(t_env *env, char **argv);
 short		init_philosopher(t_env *env);
+
+/*******************************/
+/*         MONITORING          */
+/*******************************/
+short		init_monitor(t_env *env);
+short		join_thread(t_env *env);
 
 /*******************************/
 /*         ROUTINES            */
@@ -58,10 +64,14 @@ short		routine_think(t_philosopher *philo);
 /*******************************/
 /*            UTILS            */
 /*******************************/
+size_t		get_last_meal(t_philosopher *philo);
+void		update_last_meal(t_philosopher *philo, size_t new_value);
+short		get_state_end(t_param *param);
+void		update_state_end(t_param *param, int new_value);
 void		clean(t_env *env);
 void		ft_sleep(size_t time);
 size_t		get_time(void);
-size_t		get_time_last_meal(t_philosopher *philo);
+size_t		get_delay_last_meal(t_philosopher *philo);
 size_t		get_time_simulation(t_philosopher *philo);
 void		print_state_philo(t_philosopher *philo, char *log,
 				size_t timestamp);

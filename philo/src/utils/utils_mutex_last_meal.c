@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_debug.c                                      :+:      :+:    :+:   */
+/*   utils_mutex_last_meal.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/26 02:17:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/27 22:53:50 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/27 23:22:55 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/27 23:23:05 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	debug_print_param(t_env *env)
+size_t	get_last_meal(t_philosopher *philo)
 {
-	printf("List Param:\n");
-	printf(" nb_philo: %ld\n", env->param->nb_philo);
-	printf(" time_die: %ld\n", env->param->time_die);
-	printf(" time_eat: %ld\n", env->param->time_eat);
-	printf(" time_sleep: %ld\n", env->param->time_sleep);
-	printf(" nb_to_eat: %ld\n", env->param->nb_to_eat);
-	printf(" state_end: %d\n", env->param->state_end);
+	size_t	last_meal;
+
+	pthread_mutex_lock(&philo->lock_last_meal);
+	last_meal = philo->time_last_meal;
+	pthread_mutex_unlock(&philo->lock_last_meal);
+	return (last_meal);
+}
+
+void	update_last_meal(t_philosopher *philo, size_t new_value)
+{
+	pthread_mutex_lock(&philo->lock_last_meal);
+	philo->time_last_meal = new_value;
+	pthread_mutex_unlock(&philo->lock_last_meal);
 }

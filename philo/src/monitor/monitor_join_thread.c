@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_debug.c                                      :+:      :+:    :+:   */
+/*   monitor_join_thread.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/26 02:17:47 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/27 22:53:50 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/27 19:07:26 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/27 22:52:45 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	debug_print_param(t_env *env)
+short	join_thread(t_env *env)
 {
-	printf("List Param:\n");
-	printf(" nb_philo: %ld\n", env->param->nb_philo);
-	printf(" time_die: %ld\n", env->param->time_die);
-	printf(" time_eat: %ld\n", env->param->time_eat);
-	printf(" time_sleep: %ld\n", env->param->time_sleep);
-	printf(" nb_to_eat: %ld\n", env->param->nb_to_eat);
-	printf(" state_end: %d\n", env->param->state_end);
+	size_t	i;
+
+	i = 0;
+	while (i < env->param->nb_philo)
+	{
+		pthread_join(env->philo[i]->thread, NULL);
+		i++;
+	}
+	pthread_join(env->monitor_thread, NULL);
+	return (0);
 }

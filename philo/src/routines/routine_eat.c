@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 18:07:48 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/27 02:57:50 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/28 01:15:28 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 short	routine_eat(t_philosopher *philo)
 {
-	if (philo->param.state_end == 1)
+	if (get_state_end(philo->param))
 		return (1);
-	philo->time_last_meal = philo->time_last_meal + 1;
+	update_last_meal(philo, get_time_simulation(philo));
 	philo->count_to_eat++;
 	print_state_philo(philo, LOG_EATING, get_time_simulation(philo));
-	// usleep(philo->param.time_eat * 1000);
-	ft_sleep(philo->param.time_eat);
+	ft_sleep(philo->param->time_eat);
 	return (0);
 }

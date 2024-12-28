@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 03:49:43 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/27 04:10:53 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/28 00:26:50 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ typedef struct s_param
 	size_t			time_sleep;
 	size_t			nb_to_eat;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	printf_lock;
+	pthread_mutex_t	lock_forks;
 	size_t			start_time;
-	int				state_end;
+	volatile int	state_end;
+	pthread_mutex_t	lock_state_end;
+	pthread_mutex_t	lock_printf;
 }					t_param;
 
 typedef struct s_philosopher
@@ -44,16 +46,17 @@ typedef struct s_philosopher
 	size_t			id;
 	pthread_t		thread;
 	size_t			time_last_meal;
+	pthread_mutex_t	lock_last_meal;
 	size_t			count_to_eat;
-	struct s_param	param;
+	struct s_param	*param;
 }					t_philosopher;
 
 typedef struct s_env
 {
-	t_param			param;
+	t_param			*param;
 	t_gc			*gc;
 	t_philosopher	**philo;
-	pthread_t		monitor;
+	pthread_t		monitor_thread;
 }					t_env;
 
 #endif

@@ -15,13 +15,16 @@ SRC = philo.c \
 		routines/routine_sleep.c \
 		routines/routine_think.c \
 \
-		monitor/monitor_death.c \
-		monitor/monitor_state.c \
+		monitor/monitor_join_thread.c \
+		monitor/monitor_init.c \
+		monitor/monitor_routine.c \
 \
 		utils/utils_clean.c \
 		utils/utils_print.c \
 		utils/utils_time.c \
 		utils/utils_debug.c \
+		utils/utils_mutex_last_meal.c \
+		utils/utils_mutex_state_end.c \
 \
 		lib/ft_atoll.c \
 		lib/ft_strlen.c \
@@ -36,8 +39,8 @@ OBJ := $(patsubst $(SRCDIR)/%, $(OBJDIR)/%, $(OBJ))
 BUILD = $(OBJDIR)/.build
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(INCDIR) -g3
-
+CFLAGS = -Wall -Wextra -Werror -I$(INCDIR)
+# -g3
 #################################
 #          COMPIL MODE          #
 #################################

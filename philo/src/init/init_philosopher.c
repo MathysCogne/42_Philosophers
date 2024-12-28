@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 00:38:32 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/27 04:19:45 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/28 01:28:02 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static t_philosopher	*create_a_philosopher(t_env *env, size_t id)
 	philo = malloc(sizeof(t_philosopher));
 	if (!philo)
 		return (NULL);
-	gc_add(env->gc, philo);
 	philo->id = id;
-	philo->time_last_meal = get_time();
+	philo->time_last_meal = 0;
 	philo->count_to_eat = 0;
 	philo->param = env->param;
+	pthread_mutex_init(&philo->lock_last_meal, NULL);
 	pthread_create(&philo->thread, NULL, routine_handler, philo);
 	return (philo);
 }
@@ -32,22 +32,27 @@ short	init_philosopher(t_env *env)
 {
 	size_t	i;
 
-	env->philo = malloc(sizeof(t_philosopher) * env->param.nb_philo);
+	env->philo = malloc(sizeof(t_philosopher) * env->param->nb_philo);
 	if (!env->philo)
 		return (1);
 	gc_add(env->gc, env->philo);
 	i = 0;
-	while (i < env->param.nb_philo)
+	while (i < env->param->nb_philo)
 	{
-		if (!(env->philo[i] = create_a_philosopher(env, i)))
+		env->philo[i] = create_a_philosopher(env, i);
+		if (!env->philo[i])
 			return (1);
-		i++;
+		gc_add(env->gc, env->philo[i]);
+		i += 2;
 	}
-	i = 0;
-	while (i < env->param.nb_philo)
+	i = 1;
+	while (i < env->param->nb_philo)
 	{
-		pthread_join(env->philo[i]->thread, NULL);
-		i++;
+		env->philo[i] = create_a_philosopher(env, i);
+		if (!env->philo[i])
+			return (1);
+		gc_add(env->gc, env->philo[i]);
+		i += 2;
 	}
 	return (0);
 }
