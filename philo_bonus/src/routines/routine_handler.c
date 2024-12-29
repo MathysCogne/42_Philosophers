@@ -6,13 +6,13 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 17:44:34 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/29 00:51:34 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/29 03:01:48 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	*routine_monitor_process(void *arg)
+static void	*routine_monitor_process(void *arg)
 {
 	t_philosopher	*philo;
 
@@ -22,20 +22,16 @@ void	*routine_monitor_process(void *arg)
 		if (get_delay_last_meal(philo) > philo->param->time_die)
 		{
 			update_state_end(philo->param, 1);
-			usleep(100);
 			print_state_philo(philo, LOG_DIED, get_time_simulation(philo));
 			break ;
 		}
-		usleep(100);
+		usleep(10);
 	}
 	return (NULL);
 }
 
-void	*routine_handler(void *arg)
+void	*routine_handler(t_philosopher *philo)
 {
-	t_philosopher	*philo;
-
-	philo = (t_philosopher *)arg;
 	philo->param->start_time = get_time();
 	pthread_create(&philo->monitor_processus, NULL, routine_monitor_process,
 		philo);
@@ -57,5 +53,6 @@ void	*routine_handler(void *arg)
 		if (philo->param->nb_philo % 2 != 0)
 			routine_think(philo);
 	}
+	pthread_join(philo->monitor_processus, NULL);
 	exit(1);
 }

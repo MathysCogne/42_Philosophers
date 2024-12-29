@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 18:07:48 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/28 23:44:31 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/29 01:06:43 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ short	routine_take_fork(t_philosopher *philo)
 	{
 		print_state_philo(philo, LOG_TAKE_FORK, get_time_simulation(philo));
 		ft_sleep(philo->param->time_die);
+		print_state_philo(philo, LOG_DIED, get_time_simulation(philo));
 		return (1);
 	}
 	sem_wait(philo->param->sem_forks);

@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_clean.c                                      :+:      :+:    :+:   */
+/*   monitor_wait_processus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/26 03:29:46 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/29 02:55:55 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/27 19:07:26 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/29 02:19:00 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	clean(t_env *env)
+short	wait_processus(t_env *env)
 {
-	sem_close(env->param->sem_forks);
-	sem_close(env->param->sem_state_end);
-	sem_close(env->param->sem_printf);
-	sem_unlink("/sem_forks");
-	sem_unlink("/sem_state_end");
-	sem_unlink("/sem_printf");
-	gc_clean(env->gc);
+	size_t	i;
+	int		status;
+
+	i = 0;
+	while (i < env->param->nb_philo)
+	{
+		waitpid(env->philo[i]->pid, &status, 0);
+		if (WIFEXITED(status))
+		{
+			if (WEXITSTATUS(status) == 1)
+			{
+				kill_all_philo(env);
+				break ;
+			}
+		}
+		i++;
+	}
+	return (0);
 }

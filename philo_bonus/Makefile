@@ -15,17 +15,17 @@ SRC = philo_bonus.c \
 		routines/routine_sleep.c \
 		routines/routine_think.c \
 \
-		monitor/monitor_join_thread.c \
-		monitor/monitor_init.c \
-		monitor/monitor_routine.c \
+		monitor/monitor_wait_processus.c \
+		monitor/monitor_handler.c \
 \
 		utils/utils_clean.c \
 		utils/utils_print.c \
 		utils/utils_time.c \
 		utils/utils_debug.c \
-		utils/utils_mutex_last_meal.c \
-		utils/utils_mutex_state_end.c \
-		utils/utils_mutex_count_eat.c \
+		utils/utils_sem_last_meal.c \
+		utils/utils_sem_state_end.c \
+		utils/utils_sem_count_eat.c \
+		utils/utils_kill_all_philo.c \
 \
 		lib/ft_atoll.c \
 		lib/ft_strlen.c \

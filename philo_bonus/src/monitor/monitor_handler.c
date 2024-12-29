@@ -1,37 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monitor_join_thread.c                              :+:      :+:    :+:   */
+/*   monitor_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/27 19:07:26 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/29 00:01:29 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/27 04:11:06 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/29 02:19:49 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-short	join_thread(t_env *env)
+short	monitor_handler(t_env *env)
 {
 	size_t	i;
 	int		status;
+	size_t	philo_finish_eat;
 
-	i = 0;
-	while (i < env->param->nb_philo)
+	philo_finish_eat = 0;
+	while (1)
 	{
-		waitpid(env->philo[i]->pid, &status, 0);
-		printf("UN PHILO MORT\n");
-		if (WIFEXITED(status))
+		i = 0;
+		while (i < env->param->nb_philo)
 		{
-			if (WEXITSTATUS(status) == 1)
+			if (waitpid(env->philo[i]->pid, &status, WNOHANG) > 0)
 			{
-				printf(">> KILL ALL\n");
-				// kill_all_philo(env);
-				break ;
+				if (WEXITSTATUS(status) == 1)
+					return (kill_all_philo(env), 1);
+				else if (WEXITSTATUS(status) == 0)
+					philo_finish_eat++;
 			}
+			i++;
 		}
-		i++;
+		if (philo_finish_eat == env->param->nb_philo)
+			return (kill_all_philo(env), 1);
+		usleep(200);
 	}
+}
+
+short	init_monitor(t_env *env)
+{
+	monitor_handler(env);
 	return (0);
 }

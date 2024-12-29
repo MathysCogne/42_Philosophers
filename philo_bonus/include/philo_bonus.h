@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_bonus.h                                            :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/25 17:14:59 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/28 17:46:40 by mcogne--         ###   ########.fr       */
+/*   Created: 2024/12/29 17:14:59 by mcogne--          #+#    #+#             */
+/*   Updated: 2024/12/29 03:06:54 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,12 @@ short		init_philosopher(t_env *env);
 /*         MONITORING          */
 /*******************************/
 short		init_monitor(t_env *env);
-short		join_thread(t_env *env);
+short		wait_processus(t_env *env);
 
 /*******************************/
 /*         ROUTINES            */
 /*******************************/
-void		*routine_handler(void *arg);
+void		*routine_handler(t_philosopher *philo);
 short		routine_take_fork(t_philosopher *philo);
 short		routine_eat(t_philosopher *philo);
 short		routine_free_fork(t_philosopher *philo);
@@ -76,7 +76,7 @@ short		routine_think(t_philosopher *philo);
 /*******************************/
 /*            UTILS            */
 /*******************************/
-// Handler Mutex
+// Handler Sem
 size_t		get_last_meal(t_philosopher *philo);
 void		update_last_meal(t_philosopher *philo, size_t new_value);
 short		get_state_end(t_param *param);
@@ -89,6 +89,7 @@ void		ft_sleep(size_t time);
 size_t		get_time(void);
 size_t		get_delay_last_meal(t_philosopher *philo);
 size_t		get_time_simulation(t_philosopher *philo);
+void		kill_all_philo(t_env *env);
 void		print_state_philo(t_philosopher *philo, char *log,
 				size_t timestamp);
 

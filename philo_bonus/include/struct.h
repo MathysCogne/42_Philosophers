@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 03:49:43 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/29 00:43:34 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/29 02:39:31 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_param
 	sem_t			*sem_forks;
 	sem_t			*sem_state_end;
 	sem_t			*sem_printf;
+	sem_t			*sem_print_died;
 	volatile int	state_end;
 }					t_param;
 
