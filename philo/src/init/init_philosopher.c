@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 00:38:32 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/28 01:28:02 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/29 01:45:23 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static t_philosopher	*create_a_philosopher(t_env *env, size_t id)
 	philo->count_to_eat = 0;
 	philo->param = env->param;
 	pthread_mutex_init(&philo->lock_last_meal, NULL);
+	pthread_mutex_init(&philo->lock_count_meal, NULL);
 	pthread_create(&philo->thread, NULL, routine_handler, philo);
 	return (philo);
 }

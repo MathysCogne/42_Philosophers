@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 03:49:43 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/28 00:26:50 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/29 01:33:36 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_philosopher
 	size_t			time_last_meal;
 	pthread_mutex_t	lock_last_meal;
 	size_t			count_to_eat;
+	pthread_mutex_t	lock_count_meal;
 	struct s_param	*param;
 }					t_philosopher;
 

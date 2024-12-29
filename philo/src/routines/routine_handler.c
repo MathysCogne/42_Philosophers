@@ -6,15 +6,12 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 17:44:34 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/28 01:31:13 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/29 01:22:48 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// TODO A SUPR MMUTEX LOCKFORKS
-// pthread_mutex_lock(&philo->param->lock_forks);
-// pthread_mutex_unlock(&philo->param->lock_forks);
 void	*routine_handler(void *arg)
 {
 	t_philosopher	*philo;
@@ -25,7 +22,10 @@ void	*routine_handler(void *arg)
 		if (routine_take_fork(philo))
 			break ;
 		if (routine_eat(philo))
+		{
+			routine_free_fork(philo);
 			break ;
+		}
 		if (routine_free_fork(philo))
 			break ;
 		if (routine_sleep(philo))

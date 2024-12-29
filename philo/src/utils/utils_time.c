@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 00:50:05 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/27 23:39:12 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/29 01:46:33 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ size_t	get_time(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
-// TODO CHECK DATA RACE PARAM START TIME NON ?
 size_t	get_time_simulation(t_philosopher *philo)
 {
 	return (get_time() - philo->param->start_time);

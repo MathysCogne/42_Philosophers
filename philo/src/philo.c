@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 17:20:58 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/28 01:27:00 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/29 01:48:00 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,24 @@ static short	philo(t_env *env, char **argv)
 	return (0);
 }
 
-// TODO WRITE IN STDERR
 int	main(int argc, char **argv)
 {
 	t_env	env;
 
 	if ((argc != 5 && argc != 6) || is_int(argc, argv))
 	{
-		printf("Usage: %s [number_of_philosophers]"
+		write(2,
+			"Usage: ./philo [number_of_philosophers]"
 			"[time_to_die] [time_to_eat] [time_to_sleep] "
 			"[number_of_times_each_philosopher_must_eat (optional)]\n",
-			argv[0]);
+			138);
 		return (1);
 	}
 	env.gc = gc_init();
 	if (philo(&env, argv))
 	{
 		clean(&env);
-		printf("Error.\n");
+		write(2, "Error.\n", 8);
 		return (1);
 	}
 	clean(&env);

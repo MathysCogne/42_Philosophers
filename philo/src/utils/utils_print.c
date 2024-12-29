@@ -6,17 +6,11 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 18:20:51 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/28 01:18:59 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/29 01:25:54 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-// imestamp_in_ms X has taken a fork
-// ◦timestamp_in_ms X is eating
-// ◦timestamp_in_ms X is sleeping
-// ◦timestamp_in_ms X is thinking
-// ◦timestamp_in_ms X died
 
 void	print_state_philo(t_philosopher *philo, char *log, size_t timestamp)
 {

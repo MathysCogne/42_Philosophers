@@ -6,7 +6,7 @@
 /*   By: mcogne-- <mcogne--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 17:14:59 by mcogne--          #+#    #+#             */
-/*   Updated: 2024/12/27 23:25:42 by mcogne--         ###   ########.fr       */
+/*   Updated: 2024/12/29 01:35:10 by mcogne--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
-// memset, printf, malloc, free, write,
-// usleep, gettimeofday, pthread_create,
-// pthread_detach, pthread_join, pthread_mutex_init,
-// pthread_mutex_destroy, pthread_mutex_lock,
-// pthread_mutex_unlock
+
 /*******************************/
 /*           DEFINE            */
 /*******************************/
@@ -50,6 +46,8 @@ short		init_philosopher(t_env *env);
 /*******************************/
 short		init_monitor(t_env *env);
 short		join_thread(t_env *env);
+short		check_time_eat(t_env *env);
+short		check_nb_eat(t_env *env);
 
 /*******************************/
 /*         ROUTINES            */
@@ -64,10 +62,14 @@ short		routine_think(t_philosopher *philo);
 /*******************************/
 /*            UTILS            */
 /*******************************/
+// Handler Mutex
 size_t		get_last_meal(t_philosopher *philo);
 void		update_last_meal(t_philosopher *philo, size_t new_value);
 short		get_state_end(t_param *param);
 void		update_state_end(t_param *param, int new_value);
+void		increment_count_eat(t_philosopher *philo);
+size_t		get_count_eat(t_philosopher *philo);
+// Utils
 void		clean(t_env *env);
 void		ft_sleep(size_t time);
 size_t		get_time(void);
