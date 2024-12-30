@@ -1,12 +1,12 @@
 <div align="center">
-<h1>42 - Philosophers</h1>
+<h1>42 - Philosophers 💭🍴</h1>
 
 <img src="subject/cover.png" alt="Covers" width="650" />
 
 </br>
 </br>
 
-<strong>Philosophers 💭🍴</strong>
+
 
 <p>
 The Philosophers project, explores concurrency and synchronization challenges in programming.  
@@ -63,8 +63,12 @@ The process version tackles the same challenge using separate processes and sema
 
 </br>
 
+<a href="https://nafuka11.github.io/philosophers-visualizer/">Visualize the Philosophers Problem:</a>
+
 <img src="subject/cover2.png" alt="Covers" width="650" />
 
+</br>
+</br>
 
 ## Usage
 
